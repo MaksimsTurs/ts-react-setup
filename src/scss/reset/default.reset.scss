@@ -1,0 +1,54 @@
+* {
+	user-select: none;
+	box-sizing: border-box;
+	padding: 0rem;
+	margin: 0rem;
+	border: 0rem;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+a {
+	display: block;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	font-family: 1rem;
+	background-color: transparent;
+}
+
+button {
+	cursor: pointer;
+}

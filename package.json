@@ -12,32 +12,32 @@
 		"build": "vitest run && vite build",
 		"preview": "vite preview"
 	},
+	"dependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.18.0"
+	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^6.1.4",
-		"@testing-library/react": "^14.0.0",
+		"@testing-library/react": "^14.1.0",
 		"@testing-library/user-event": "^14.5.1",
-		"@types/node": "^20.8.9",
+		"@types/node": "^20.9.0",
 		"cssnano": "^6.0.1",
 		"jsdom": "^22.1.0",
 		"postcss": "^8.4.31",
 		"postcss-combine-duplicated-selectors": "^10.0.3",
-		"postcss-preset-env": "^9.2.0",
+		"postcss-preset-env": "^9.3.0",
 		"sass": "^1.69.5",
-		"terser": "^5.22.0",
+		"terser": "^5.24.0",
 		"typescript": "5.2.2",
 		"vite": "^4.5.0",
-		"vite-imagetools": "^6.1.0",
+		"vite-imagetools": "^6.2.3",
 		"vite-plugin-checker": "^0.6.2",
 		"vite-plugin-html": "^3.2.0",
 		"vite-plugin-image-optimizer": "^1.1.7",
 		"vite-plugin-image-presets": "^0.3.4",
 		"vite-plugin-optimize-css-modules": "^1.0.4",
-		"vite-plugin-webfont-dl": "^3.7.6",
+		"vite-plugin-webfont-dl": "^3.8.1",
 		"vitest": "^0.34.6"
-	},
-	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.17.0"
 	}
 }

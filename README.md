@@ -1,10 +1,11 @@
 # Vite custom setup.
 
 What include this setup:
+
 - Vitest
 - Typescript checker
 - Image optimization
-- Path alias
+- Path aliases
 - Terser minifyer with full setup for new Browsers
 - Chunk spliting in react and redux vendors
 - File spliting in externals folder (font, img, js, css folders)

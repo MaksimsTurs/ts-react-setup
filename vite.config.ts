@@ -38,11 +38,11 @@ export default viteConfig(({ mode }: string) => {
 		server: {
 			open: true,
 		},
-		test: {
-			globals: true,
-			setupFile: path.resolve(__dirname, 'tests-setup.ts'),
-			environment: 'jsdom',
-		},
+		// test: {
+		// 	globals: true,
+		// 	setupFile: path.resolve(__dirname, 'tests-setup.ts'),
+		// 	environment: 'jsdom',
+		// },
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, 'src'),
@@ -69,15 +69,15 @@ export default viteConfig(({ mode }: string) => {
 				input: path.resolve(__dirname, 'src/index.html'),
 				output: {
 					manualChunks: {
+						'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
 						'react-vendor': [
 							'react',
 							'react-dom',
 							'react-dom/client',
 							'react-router-dom',
 						],
-						'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
 					},
-					assetFileNames: (assetInfo) => {
+					assetFileNames: assetInfo => {
 						let extType = assetInfo.name.split('.').at(1)
 
 						if (/webp/i.test(extType)) extType = 'img'
@@ -126,4 +126,3 @@ export default viteConfig(({ mode }: string) => {
 		],
 	}
 })
-	

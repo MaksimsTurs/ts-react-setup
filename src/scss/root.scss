@@ -1,0 +1,8 @@
+@import './reset/default.reset';
+@import './reset/input.reset';
+
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}

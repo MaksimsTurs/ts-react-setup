@@ -1,5 +1,4 @@
-// @ts-nocheck
-//Vite Configuration
+//Vite
 import { defineConfig as viteConfig } from 'vite'
 
 //Vite HTML minification
@@ -16,20 +15,14 @@ import viteWebFont from 'vite-plugin-webfont-dl'
 //CSS Optimization
 import { optimizeCssModules as viteOptimizeCSSModule } from 'vite-plugin-optimize-css-modules'
 
-//Native Node.js modules
-import path from 'node:path'
-
 //Checkers and Helpers
 import viteTypescriptChecker from 'vite-plugin-checker'
 
-//Types and Enums
-enum Modes {
-	development,
-	production,
-}
+//Native nodejs modules
+import path from 'node:path'
 
-export default viteConfig(({ mode }: string) => {
-	const isDev: boolean = mode === Modes.development ? true : false
+export default viteConfig(({ mode }) => {
+	const isDev: boolean = mode === 'development' ? true : false
 
 	return {
 		clearScreen: false,
@@ -38,6 +31,7 @@ export default viteConfig(({ mode }: string) => {
 		server: {
 			open: true,
 		},
+		//Optional
 		// test: {
 		// 	globals: true,
 		// 	setupFile: path.resolve(__dirname, 'tests-setup.ts'),
@@ -80,8 +74,10 @@ export default viteConfig(({ mode }: string) => {
 					assetFileNames: assetInfo => {
 						let extType = assetInfo.name.split('.').at(1)
 
-						if (/webp/i.test(extType)) extType = 'img'
+						//@ts-ignore
+						if (/webp|png|jpeg|jpg/i.test(extType)) extType = 'img'
 
+						//@ts-ignore
 						return `assets/${extType}/[name]-[hash][extname]`
 					},
 					chunkFileNames: 'assets/js/[name]-[hash].js',

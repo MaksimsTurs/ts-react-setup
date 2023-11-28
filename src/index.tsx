@@ -1,5 +1,5 @@
-import '@/scss/root.scss'
+import "@/scss/root.scss"
 
-import { createRoot } from 'react-dom/client'
+import { createRoot } from "react-dom/client"
 
-createRoot(document.getElementById('root') as HTMLElement)
+createRoot(document.getElementById("root") as HTMLElement)

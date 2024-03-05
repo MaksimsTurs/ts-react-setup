@@ -1,124 +1,38 @@
-//Vite
 import { defineConfig as viteConfig } from 'vite'
 
-//Vite HTML minification
-import { createHtmlPlugin as viteHTMLPlugin } from 'vite-plugin-html'
-
-//Vite Image optimization and convertation
-import { imagetools as viteImageTools } from 'vite-imagetools'
-import { ViteImageOptimizer as viteImageOptimizer } from 'vite-plugin-image-optimizer'
-import viteImagePresets, { widthPreset } from 'vite-plugin-image-presets'
-
-//Font optimization
-import viteWebFont from 'vite-plugin-webfont-dl'
-
-//CSS Optimization
-import { optimizeCssModules as viteOptimizeCSSModule } from 'vite-plugin-optimize-css-modules'
-
-//Checkers and Helpers
-import viteTypescriptChecker from 'vite-plugin-checker'
-
-//Native nodejs modules
 import path from 'node:path'
+
+import test from './vite-option/test.vite'
+import server from './vite-option/server.vite'
+import build from './vite-option/build.vite'
+
+import viteWebFont from './vite-option/vite-plugin/viteWebFont'
+import viteHTMLPlugin from './vite-option/vite-plugin/viteHTMLPlugin'
+import viteOptimizeCSS from './vite-option/vite-plugin/viteOptimizeCSS'
+import viteIMGTools from './vite-option/vite-plugin/viteIMGTools'
+import viteIMGOptimizer from './vite-option/vite-plugin/viteIMGOptimizer'
+import vitePluginChunkSplit from './vite-option/vite-plugin/vitePluginChunkSplit'
 
 export default viteConfig(({ mode }) => {
 	const isDev: boolean = mode === 'development' ? true : false
 
 	return {
+		root: path.resolve(__dirname, 'src'),
+		publicDir: path.resolve(__dirname, 'public'),
+		assetsInclude: ['**/*.png', '**/*.webp', '**/*.jpg', '**/*.jpeg'],
 		clearScreen: false,
 		appType: 'spa',
-		root: path.resolve(__dirname, 'src'),
-		server: {
-			open: true,
-		},
-		//Optional
-		// test: {
-		// 	globals: true,
-		// 	setupFile: path.resolve(__dirname, 'tests-setup.ts'),
-		// 	environment: 'jsdom',
-		// },
-		resolve: {
-			alias: {
-				'@': path.resolve(__dirname, 'src'),
-			},
-		},
+		resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+		server,
+		test: {...test, setupFile: path.resolve(__dirname, 'tests-setup.ts') },
 		build: {
-			minify: isDev ? 'esbuild' : 'terser',
-			emptyOutDir: true,
-			sourcemap: true,
-			brotliSize: false,
-			terserOptions: {
-				ecma: 2020,
-				compress: {
-					arguments: true,
-					drop_console: true,
-					drop_debugger: true,
-					expression: true,
-				},
-			},
+			...build(isDev),
 			outDir: path.resolve(__dirname, 'build'),
-			reportCompressedSize: false,
-			chunkSizeWarningLimit: 250,
 			rollupOptions: {
 				input: path.resolve(__dirname, 'src/index.html'),
-				output: {
-					manualChunks: {
-						'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
-						'react-vendor': [
-							'react',
-							'react-dom',
-							'react-dom/client',
-							'react-router-dom',
-						],
-					},
-					assetFileNames: assetInfo => {
-						let extType = assetInfo.name.split('.').at(1)
-
-						//@ts-ignore
-						if (/webp|png|jpeg|jpg/i.test(extType)) extType = 'img'
-
-						//@ts-ignore
-						return `assets/${extType}/[name]-[hash][extname]`
-					},
-					chunkFileNames: 'assets/js/[name]-[hash].js',
-					entryFileNames: 'assets/js/[name]-[hash].js',
-				},
+				output: {...build(isDev).rollupOptions?.output},
 			},
 		},
-		plugins: [
-			viteTypescriptChecker({
-				enableBuild: true,
-				typescript: true,
-				terminal: false,
-				overlay: false,
-				eslint: false,
-			}),
-			viteWebFont([], {
-				injectAsStyleTag: false,
-				minifyCss: !isDev,
-			}),
-			viteHTMLPlugin({ minify: true }),
-			viteOptimizeCSSModule(),
-			viteImageTools(),
-			viteImageOptimizer({
-				test: /\.(webp)$/i,
-				webp: {
-					quality: 20,
-					alphaQuality: 20,
-					effort: 6,
-					smartSubsample: true,
-				},
-			}),
-			viteImagePresets({
-				thumbnail: widthPreset({
-					class: 'img thumb',
-					loading: 'lazy',
-					widths: [30, 80],
-					formats: {
-						webp: { quality: 20 },
-					},
-				}),
-			}),
-		],
+		plugins: [vitePluginChunkSplit(), viteWebFont(isDev), viteHTMLPlugin(), viteOptimizeCSS(), viteIMGTools(), viteIMGOptimizer()]
 	}
 })

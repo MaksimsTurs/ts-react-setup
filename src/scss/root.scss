@@ -1,8 +1,10 @@
-@import './reset/default.reset';
-@import './reset/input.reset';
+//Reset
+@import './reset/default';
+@import './reset/input';
+
+@import './mixin';
 
 #root {
-	display: flex;
-	flex-direction: column;
+	@include flex-column-alignitems-justifycontent();
 	min-height: 100%;
 }

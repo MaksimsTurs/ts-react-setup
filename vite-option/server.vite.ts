@@ -1,0 +1,1 @@
+export default { open: true, port: 3000, warmup: { clientFiles: ['../src/**/*'] } }

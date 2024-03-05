@@ -1,0 +1,1 @@
+export default { globals: true, environment: 'jsdom' }

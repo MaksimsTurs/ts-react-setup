@@ -1,6 +1,6 @@
-import { chunkSplitPlugin as func } from 'vite-plugin-chunk-split'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
-const vitePluginChunkSplit = () => func({
+export default () => chunkSplitPlugin({
   strategy: 'default',
   customChunk(context) {
     const { file } = context
@@ -11,5 +11,3 @@ const vitePluginChunkSplit = () => func({
     if(splitedString.includes('page.tsx')) return `page/${folderName}`
   },
 })
-
-export default vitePluginChunkSplit

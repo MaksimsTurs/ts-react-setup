@@ -1,5 +1,3 @@
-import { createHtmlPlugin as func } from 'vite-plugin-html'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
-const viteHTMLPlugin = () => func({ minify: true })
-
-export default viteHTMLPlugin
+export default () => createHtmlPlugin({ minify: true })

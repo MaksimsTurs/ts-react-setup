@@ -1,5 +1,3 @@
-import { imagetools as func } from 'vite-imagetools'
+import { imagetools } from 'vite-imagetools'
 
-const viteIMGTools = () => func()
-
-export default viteIMGTools
+export default () => imagetools()

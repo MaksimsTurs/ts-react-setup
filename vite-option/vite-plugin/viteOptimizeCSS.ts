@@ -1,5 +1,3 @@
-import { optimizeCssModules as func } from 'vite-plugin-optimize-css-modules'
+import { optimizeCssModules } from 'vite-plugin-optimize-css-modules'
 
-const viteOptimizeCSS = () => func()
-
-export default viteOptimizeCSS
+export default () => optimizeCssModules()

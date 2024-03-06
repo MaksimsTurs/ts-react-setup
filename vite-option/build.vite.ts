@@ -1,6 +1,6 @@
 import { BuildOptions } from 'vite'
 
-const build = (isDev: boolean): BuildOptions => ({
+export default (isDev: boolean): BuildOptions => ({
 	minify: isDev ? 'esbuild' : 'terser',
 	sourcemap: isDev ? false : true,
 	manifest: isDev ? false : true,
@@ -33,5 +33,3 @@ const build = (isDev: boolean): BuildOptions => ({
 		},
 	},
 })
-
-export default build

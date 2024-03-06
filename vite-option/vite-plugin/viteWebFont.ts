@@ -1,5 +1,3 @@
-import func from 'vite-plugin-webfont-dl'
+import viteWebFont from 'vite-plugin-webfont-dl'
 
-const viteWebFont = (isDev: boolean) => func([], { injectAsStyleTag: false, minifyCss: !isDev })
-
-export default viteWebFont
+export default (isDev: boolean) => viteWebFont([], { injectAsStyleTag: false, minifyCss: !isDev })

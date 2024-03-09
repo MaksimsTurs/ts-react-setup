@@ -11,16 +11,18 @@ const fetcher = {
   },
   get: async function<T>(URL: string) {
     const response = await fetch(this.formatURL(URL))
+    const data = await response.json()
 
-    if(!response.ok) throw new Error(JSON.stringify(response))
+    if(!response.ok) throw new Error(JSON.stringify(data))
 
-    return response as T
+    return data as T
   },
   post: async function<T>(URL: string, body?: any, headers?: any) { 
     const response = await fetch(this.formatURL(URL), { method: 'POST', body: this.setBody(body), headers })
+    const data = await response.json()
 
-    if(!response.ok) throw new Error(JSON.stringify(response))
-
-    return response as T
+    if(!response.ok) throw new Error(JSON.stringify(data))
+    
+    return data as T
   }
 }

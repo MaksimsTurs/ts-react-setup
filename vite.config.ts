@@ -23,8 +23,8 @@ export default viteConfig(({ mode }) => {
 		clearScreen: false,
 		appType: 'spa',
 		resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
-		server,
 		test: {...test, setupFile: path.resolve(__dirname, 'tests-setup.ts') },
+		server,
 		build: {
 			...build(isDev),
 			outDir: path.resolve(__dirname, 'build'),

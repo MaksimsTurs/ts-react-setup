@@ -1,17 +1,19 @@
-const fetcher = {
+export default {
   baseURL: undefined,
   formatURL: function(URL: string) {
     if(this.baseURL) return `${this.baseURL}${URL}`
-    
     return URL
   },
   formatInit: function(body?: any, headers?: any) {
-    let init = { body: body || {}, headers: headers || {} }
+		let init = { headers: headers || {}, body: body || {} }
 
-    if(!('Content-Type' in headers)) init.headers = {...init.headers, 'Content-Type': 'application/json' }
-    if(typeof body === 'object') init.body = JSON.stringify(body)
-
-    return init
+		if(body && !(body instanceof FormData)) {
+			if(!headers) init.headers = { 'Content-Type': 'application/json' }
+			if(headers && !('Content-Type' in headers)) init.headers = {...init.headers, 'Content-Type': 'application/json'}
+			return {...init, body: JSON.stringify(body) }
+		}
+	
+		return init
   },
   get: async function<T>(URL: string) {
     const response = await fetch(this.formatURL(URL))

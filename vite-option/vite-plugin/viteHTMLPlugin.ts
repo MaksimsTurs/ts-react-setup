@@ -1,3 +1,7 @@
 import { createHtmlPlugin } from 'vite-plugin-html'
 
-export default () => createHtmlPlugin({ minify: true })
+export default () => {
+  return createHtmlPlugin({ 
+    minify: true
+  })
+}

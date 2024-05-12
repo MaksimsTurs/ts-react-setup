@@ -2,9 +2,9 @@ import { defineConfig as viteConfig } from 'vite'
 
 import path from 'node:path'
 
-import test from './vite-option/test.vite'
-import server from './vite-option/server.vite'
-import build from './vite-option/build.vite'
+import buildOption from './vite-option/build.vite'
+import resolveOption from './vite-option/resolve.vite'
+import serverOption from './vite-option/server.vite'
 
 import viteWebFont from './vite-option/vite-plugin/viteWebFont'
 import viteHTMLPlugin from './vite-option/vite-plugin/viteHTMLPlugin'
@@ -13,26 +13,28 @@ import viteIMGTools from './vite-option/vite-plugin/viteIMGTools'
 import viteIMGOptimizer from './vite-option/vite-plugin/viteIMGOptimizer'
 import vitePluginChunkSplit from './vite-option/vite-plugin/vitePluginChunkSplit'
 
+import { APP_TYPE, ASSETS_INCLUDE_EXTENSTIONS } from './vite-option/const'
+
 export default viteConfig(({ mode }) => {
 	const isDev: boolean = mode === 'development' ? true : false
+	const srcPath: string = path.resolve(__dirname, 'src')
+
+	const prodPlugins = [viteHTMLPlugin(), viteIMGTools(), viteIMGOptimizer(),  viteOptimizeCSS(), vitePluginChunkSplit()]
+	const devPlugins = [viteWebFont(isDev)]
+
+	function resolve(_path: string): string {
+		return path.resolve(__dirname, _path)
+	}
 
 	return {
-		appType: 'spa',
-		root: path.resolve(__dirname, 'src'),
-		publicDir: path.resolve(__dirname, 'public'),
-		resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
-		assetsInclude: ['**/*.png', '**/*.webp', '**/*.jpg', '**/*.jpeg'],
-		test: {...test, setupFile: path.resolve(__dirname, 'tests-setup.ts') },
+		...resolveOption(srcPath),
+		...serverOption(resolve('src/**/*.*')),
+		...buildOption(isDev, resolve('output'), resolve('src/index.html')),
+		publicDir: resolve('public'),
+		appType: APP_TYPE,
+		assetsInclude: ASSETS_INCLUDE_EXTENSTIONS,
+		root: srcPath,
 		clearScreen: false,
-		server,
-		build: {
-			...build(isDev),
-			outDir: path.resolve(__dirname, 'build'),
-			rollupOptions: {
-				input: path.resolve(__dirname, 'src/index.html'),
-				output: {...build(isDev).rollupOptions?.output },
-			},
-		},
-		plugins: [vitePluginChunkSplit(), viteWebFont(isDev), viteHTMLPlugin(), viteOptimizeCSS(), viteIMGTools(), viteIMGOptimizer()]
+		plugins: isDev ? devPlugins : [...devPlugins, ...prodPlugins]
 	}
 })

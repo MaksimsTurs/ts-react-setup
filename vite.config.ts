@@ -2,39 +2,54 @@ import { defineConfig as viteConfig } from 'vite'
 
 import path from 'node:path'
 
-import buildOption from './vite-option/build.vite'
-import resolveOption from './vite-option/resolve.vite'
-import serverOption from './vite-option/server.vite'
+import buildOption from './vite/vite-option/build.vite'
+import resolveOption from './vite/vite-option/resolve.vite'
+import serverOption from './vite/vite-option/server.vite'
+import cssOption from './vite/vite-option/css.vite'
 
-import viteWebFont from './vite-option/vite-plugin/viteWebFont'
-import viteHTMLPlugin from './vite-option/vite-plugin/viteHTMLPlugin'
-import viteOptimizeCSS from './vite-option/vite-plugin/viteOptimizeCSS'
-import viteIMGTools from './vite-option/vite-plugin/viteIMGTools'
-import viteIMGOptimizer from './vite-option/vite-plugin/viteIMGOptimizer'
-import vitePluginChunkSplit from './vite-option/vite-plugin/vitePluginChunkSplit'
+import chunksplitVite from './vite/vite-plugin/chunksplit.vite'
+import duplicatescriptVite from './vite/vite-plugin/duplicatescript.vite'
+import htmlpluginVite from './vite/vite-plugin/htmlplugin.vite'
+import imageminVite from './vite/vite-plugin/imagemin.vite'
+import optimizecssVite from './vite/vite-plugin/optimizecss.vite'
+import reactswcVite from './vite/vite-plugin/reactswc.vite'
+import webfontVite from './vite/vite-plugin/webfont.vite'
 
-import { APP_TYPE, ASSETS_INCLUDE_EXTENSTIONS } from './vite-option/const'
+import { APP_TYPE, ASSETS_INCLUDE_EXTENSTIONS } from './const'
 
 export default viteConfig(({ mode }) => {
 	const isDev: boolean = mode === 'development' ? true : false
 	const srcPath: string = path.resolve(__dirname, 'src')
 
-	const prodPlugins = [viteHTMLPlugin(), viteIMGTools(), viteIMGOptimizer(),  viteOptimizeCSS(), vitePluginChunkSplit()]
-	const devPlugins = [viteWebFont(isDev)]
-
 	function resolve(_path: string): string {
 		return path.resolve(__dirname, _path)
 	}
 
+	const DEV_PLUGINS = [
+		webfontVite(),
+		reactswcVite()
+	]
+
+	const PROD_PLUGINS = [
+		webfontVite(),
+		reactswcVite(),
+		chunksplitVite(),
+		imageminVite(),
+		optimizecssVite(),
+		htmlpluginVite(),
+		duplicatescriptVite()
+	]
+
 	return {
-		...resolveOption(srcPath),
-		...serverOption(resolve('src/**/*.*')),
-		...buildOption(isDev, resolve('output'), resolve('src/index.html')),
+		...resolveOption({ path: srcPath }),
+		...serverOption({ open: false, path: resolve('src/**/*.*') }),
+		...buildOption({ isDev, outDir: resolve('output'), input: resolve('src/index.html'), minify: 'terser', target: 'esnext' }),
+		...cssOption(),
 		publicDir: resolve('public'),
 		appType: APP_TYPE,
 		assetsInclude: ASSETS_INCLUDE_EXTENSTIONS,
 		root: srcPath,
 		clearScreen: false,
-		plugins: isDev ? devPlugins : [...devPlugins, ...prodPlugins]
+		plugins: isDev ? DEV_PLUGINS : PROD_PLUGINS
 	}
 })

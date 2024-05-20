@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitest/config'
 
-import path from 'path'
+import path from 'node:path'
 
-import testOption from './vite-option/test.vite'
+import testOption from './vite/vite-option/test.vite'
 
-import { APP_TYPE } from './vite-option/const'
+import { APP_TYPE } from './const'
 
 export default defineConfig(() => {
   function resolve(_path: string) {

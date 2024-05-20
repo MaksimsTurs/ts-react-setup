@@ -4,7 +4,7 @@ import postcssduplicatecombine from "postcss-combine-duplicated-selectors";
 
 export default {
   plugins: [
-    postcssenv({ stage: 1, browsers: ["last 10 versions", "not dead", "> 0.2%", "not IE 11", "not op_mini all"] }),
+    postcssenv(),
     postcssduplicatecombine({ removeDuplicatedProperties: true, removeDuplicatedValues: true }),
     cssnano({
       convertValues: true,

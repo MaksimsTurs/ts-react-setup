@@ -24,8 +24,7 @@ export default {
     return await response.json() as T
   },
   post: async function<T>(URL: string, body?: any, headers?: any) { 
-    const init = this.formatInit(body, headers)
-    const response = await fetch(this.formatURL(URL), { method: 'POST', body: init.body, headers: init.headers })
+    const response = await fetch(this.formatURL(URL), { method: 'POST', ...this.formatInit(body, headers) })
     const data = await response.json()
 
     if(!response.ok) throw new Error(JSON.stringify(data))

@@ -4,7 +4,7 @@ export default function createFormDataFromJSON(object: any): FormData {
 
   for(let [key, value] of entries) {
     if(value instanceof FileList) {
-      formData.append(key, value[0])
+      for(let file in value) formData.append(value[file].name, value[file])
     } else {
       formData.append(key, value as string)
     }

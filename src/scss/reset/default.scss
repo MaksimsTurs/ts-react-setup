@@ -1,0 +1,75 @@
+@use '../variabel' as *;
+
+* {
+	user-select: none;
+	box-sizing: border-box;
+	padding: 0rem;
+	margin: 0rem;
+	border: none;
+
+	&:before,
+	&:after {
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+}
+
+
+body, 
+html {
+	height: 100%;
+	width: 100%;
+}
+
+header, 
+main, 
+footer {
+	width: 100%;
+}
+
+main {
+	flex-grow: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: $font-medium;
+	font-weight: 400;
+}
+
+a {
+	text-decoration: none;
+	display: block;
+	color: black;
+
+	&:hover,
+	&:visited {
+		text-decoration: none;
+		color: black;
+	}
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	font-family: $font-medium;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+button, input {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}

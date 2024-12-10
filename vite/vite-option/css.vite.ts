@@ -2,13 +2,9 @@ import type { UserConfig } from "vite";
 
 import os from 'node:os'
 
-export default (): UserConfig => {
-  const cpus = os.cpus().length
-
+export default (): UserConfig['css'] => {
   return {
-    css: {
-      transformer: 'postcss',
-      preprocessorMaxWorkers: cpus
-    }
+    transformer: "postcss",
+    preprocessorMaxWorkers: os.cpus().length
   }
 }

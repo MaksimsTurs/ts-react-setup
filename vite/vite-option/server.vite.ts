@@ -1,16 +1,14 @@
 import type { UserConfig } from "vite"
 
-type Param = {
+type ServerOptions = {
   open: boolean
   path: string
 }
 
-export default (param: Param): UserConfig => {
+export default (param: ServerOptions): UserConfig['server'] => {
   return {
-    server: {
-      open: param.open, 
-      port: 3000,
-      warmup: { clientFiles: [param.path] }
-    }
+    open: param.open, 
+    port: 3000,
+    warmup: { clientFiles: [param.path] }
   }
 }

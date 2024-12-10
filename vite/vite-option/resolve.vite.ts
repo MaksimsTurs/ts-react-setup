@@ -1,14 +1,12 @@
 import type { UserConfig } from "vite"
 
-type Param = {
+type ResolveOptions = {
   path: string
 }
 
-export default (param: Param): UserConfig => {
+export default (param: ResolveOptions): UserConfig['resolve'] => {
   return {
-    resolve: {
-      extensions: ['.ts', '.tsx'],
-      alias: { '@': param.path },
-    }
+    extensions: [".ts", ".tsx"],
+    alias: { "@": param.path },
   }
 }

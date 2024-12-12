@@ -1,4 +1,4 @@
-import type { KeyValueObject } from "@/global.type"
+import type { KeyValueObject } from "../../global.type"
 
 export interface CacheStorageImpl {
   updateByKey: <T>(param: CacheUpdateParam<T>) => void
@@ -10,7 +10,7 @@ export type CacheConstructorParam = {
   expiredAt?: number
 }
 
-export type CacheStorageObj = KeyValueObject<{ savedAt: string, value: any }>
+export type CacheStorageObj = KeyValueObject<{ savedAt: string, value: any } | null>
 
 export type CacheUpdateParam<T> = {
   key: string

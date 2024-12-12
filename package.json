@@ -1,6 +1,6 @@
 {
   "name": "ts-react-setup",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "engines": {
     "node": ">= 22.12.0",
@@ -31,7 +31,7 @@
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react-swc": "^3.7.2",
-    "caniuse-lite": "^1.0.30001687",
+    "caniuse-lite": "^1.0.30001688",
     "cssnano": "^7.0.6",
     "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
@@ -42,7 +42,7 @@
     "terser": "^5.37.0",
     "typescript": "5.7.2",
     "unplugin-detect-duplicated-deps": "^2.0.0",
-    "unplugin-imagemin": "^0.5.20",
+    "unplugin-imagemin": "^0.6.0",
     "vite": "^6.0.3",
     "vite-plugin-bundle-obfuscator": "^1.4.0",
     "vite-plugin-html": "^3.2.2",
